@@ -69,7 +69,7 @@ define(function(require,exports){
 			var lightUpModel={};
 			lightUpModel.scopeId=$('#lightup_select_scopeId').attr('val');
 			lightUpModel.title=$('#lightup_title').val();
-			lightUpModel.note=$('#lightup_note').val();
+			lightUpModel.note=UM.getEditor('lightup_note').getContent();
 			lightUpModel.gmtStartOff=$('#lightup_gmtStartOff').val();
 			lightUpModel.seeds=$('#lightup_seeds').val();
 			lightUpModel.duration=$('#lightup_duration').val();
@@ -87,7 +87,14 @@ define(function(require,exports){
 	              url:"/lightup/save.action", 
 	              type: "POST", 
 	              data: JSON.stringify( lightUpModel ), 
-	              success: function(data){if(data.success){alert(data.desc);}else{alert(data.desc);}}, 
+	              success: function(data){
+		              	if(data.success){
+		              		alert(data.desc);
+		              		UM.getEditor('lightup_note').destroy();
+		              	}else{
+		              		alert(data.desc);
+		              	}
+	              	}, 
 	              dataType: "json",
 	              contentType: "application/json"
 	            } ); 
@@ -99,6 +106,8 @@ define(function(require,exports){
 	    	push_div('left_bar_new_active');
 	    	$('#div_new_active').html($('#tpl_new_active').html());
 	    	$('#submit_lightup').click(submitLightup);
+	    	//初始化编辑器
+	    	var um = UM.getEditor('lightup_note');
 	    	$('#lightup_scopeId').click(function(){
 				$('#left_scope_list').toggle(150);
 					$.ajax(

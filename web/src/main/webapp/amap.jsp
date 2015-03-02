@@ -4,7 +4,7 @@
 <head>
 <meta name="viewport" content="initial-scale=1.0,user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-<title>Hello,world</title>
+<title>富士山下-公共活动创建平台</title>
 <!--map api start-->
 <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=85863634c83416cfe95c66d439bf5e80"></script>
 
@@ -22,6 +22,12 @@
 <script src="http://a.static.amazeui.org/assets/2.x/js/polyfill/rem.min.js"></script>
 <script src="http://a.static.amazeui.org/assets/2.x/js/polyfill/respond.min.js"></script>
 <script src="http://a.static.amazeui.org/assets/2.x/js/amazeui.legacy.js"></script><![endif]--><!--[if (gte IE 9)|!(IE)]><!--><script src="http://a.static.amazeui.org/assets/2.x/js/amazeui.min.js?v=i5hjtsmo"></script><!--<![endif]--><link rel="canonical" href="http://amazeui.org/javascript/dropdown?_ver=2.x"/></head><body class="" data-amui="2.x"><!--[if lte IE 9 ]><div class="am-alert am-alert-danger ie-warning" data-am-alert>
+<!-- 编辑器 -->
+    <link href="static/editor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="static/editor/third-party/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="static/editor/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="static/editor/umeditor.min.js"></script>
+    <script type="text/javascript" src="static/editor/lang/zh-cn/zh-cn.js"></script>
 <!-- end -->
 <script type="text/javascript">
 $(function(){
@@ -65,11 +71,10 @@ body{height:100%;margin:0px;padding:0px;font-size:14px;min-width:350px}
 .leftbar{
 	display:none;
 	position:absolute;
-	z-index:100;
+	top:48px;
 	width:100%;
 	height:90%;
 	background-color: #EEE;
-	border-right:1px red solid;
 	overflow:auto;
 	margin:0;
 }
@@ -102,7 +107,7 @@ border:1px red solid;
 <body>
 
 <!-- top start-->
-<div style="background-color: #F60;height:48px;position:absolute；margin-left:0px;z-index:1111;text-align:center;padding:0">
+<div style="background-color: #F60;height:48px;position:fixed;width:100%;margin-left:0px;text-align:center;padding:0">
 	<div style="height:39px;text-align:left;padding:10px;display:block;float:left;">
 		<span id="btn_new_active" style="margin-right:20px;color:#FFF"  class="cs">组织</span>
 		<span id="btn_find_active" style="margin-right:20px;color:#FFF" class="cs">发现</span>
@@ -131,7 +136,7 @@ border:1px red solid;
 	<!-- 左侧区域 -->
 	<div id="left_bar_new_scope" class="leftbar">
 		<div style="text-align:center">
-			<a id="btn_new_scope" href="#">新区域></a>
+			<a id="btn_new_scope" href="#">新地点></a>
 			<div id="div_new_scope">
 			</div>
 		</div>
@@ -163,8 +168,7 @@ border:1px red solid;
 		</div>
 	</div>
 	<!-- 新活动 -->
-	<div id="left_bar_new_active" class="leftbar">
-		<a id="btn_new_active" href="#">新活动></a>
+	<div id="left_bar_new_active" style="padding-top:48px">
 		<div id="div_new_active" style="text-align:center">		
 		</div>
 	</div>
@@ -185,7 +189,7 @@ border:1px red solid;
 	
 	<!-- 左侧选择区域 -->
 	<div id="left_scope_list" class="leftbar" style="text-align:center">
-		<a id="notice_select_scope">请选择一个区域></a>
+		<a id="notice_select_scope">请选择一个地点></a>
 		<ul id="ul_scope_list">
 		</ul>
 	</div>
@@ -205,7 +209,7 @@ border:1px red solid;
 	<!-- 编辑区域模板 -->
 	<script type="text/template" id="tpl_new_scope">
 		<div width="600px" style="text_align:center">
-			<input id="scopeName" placeholder="区域名称，如公司-滨江园区" style="width:70%;margin-top:20px"/>
+			<input id="scopeName" placeholder="地点名称，如公司-滨江园区" style="width:70%;margin-top:20px"/>
 			<br/>
 			<从地图上选取>
 			<br/>
@@ -266,8 +270,8 @@ border:1px red solid;
 	<script type="text/template" id="tpl_new_active">
 		<div id="div_new_active">
 			<div style="margin:15px auto;" title='输入活动名字'><input id="lightup_title" placeholder="输入活动名字,如拼车"/></div>
-			<div style="margin:15px auto;" title="选择活动区域"><a id="lightup_scopeId" style="cursor:pointer" >选择活动区域</a></div>
-			<div style="margin:15px auto;" title="已选择区域"><a id="lightup_select_scopeId" style="cursor:pointer" ></a></div>
+			<div style="margin:15px auto;" title="选择活动地点"><a id="lightup_scopeId" style="cursor:pointer" >选择活动地点</a></div>
+			<div style="margin:15px auto;" title="地点"><a id="lightup_select_scopeId" style="cursor:pointer" ></a></div>
 			<div style="margin:15px auto;text-align:center" title="活动标签">
 			</div>
 			<div style="margin:15px auto;" title="开始时间" name="datepicker">
@@ -286,8 +290,8 @@ border:1px red solid;
 			</div>
 			<div style="margin:15px auto;"><input id="lightup_seeds" style=";" placeholder="报名人数上限" value="15"/></div>
 			<div style="margin:15px auto;"><label for="lightup_isLightUp" title="点亮，让更多人发现">点亮</label><input id="lightup_isLightUp" type="checkbox"/></div>
-			<div style="margin:15px auto;"><textarea id="lightup_note" placeholder="描述信息"></textarea></div>
-			<div><button id="submit_lightup" style="margin-top:20px;padding:5px 20px">创建</button></div>
+			<div id="lightup_note" style="width:99%;text-align:left;border:5px"></div>
+			<div><a id="submit_lightup" style="margin-top:20px;padding:10px 30px">创建</a></div>
 		</div>
 	</script>
 	<!---发现活动明细-->
@@ -298,7 +302,7 @@ border:1px red solid;
 				<div style="font:blob">{lightUp.title}</div>
 				<div>地点：{scope.name}</div>
 				<div>时间：{lightUp.gmtStartOff}>{lightUp.gmtTill}</div>
-				<div>总人数：{lightUp.accepts}/{lightUp.seeds}</div>
+				<div>报名比例：{lightUp.accepts}/{lightUp.seeds}</div>
 				<a href="#" onclick="createOrder('{lightUp.id}')" id="createOrder">我要参与</a>
 				<div>{lightUp.note}</div>
 			<div>
@@ -313,18 +317,18 @@ border:1px red solid;
 	<!---订单明细-->
 	<script type="text/template" id="tpl_order_detail">
 		<li>
-			<div>活动发起人：{toUser.name}</div>
-			<div>区域：{scope.name}</div>
+			<div>发起人：{toUser.name}</div>
+			<div>地点：{scope.name}</div>
 			<div>主题：{lightUp.title}</div>
 			<div>开始：{lightUp.gmtStartOff}</div>
 			<div>结束：{lightUp.gmtTill}</div>
-			<div>结束：{order.status}</div>
+			<div>状态：{order.status}</div>
 		</li>
 	</script>
 	<!---我的活动明细-->
 	<script type="text/template" id="tpl_my_active_detail">
 		<div>发起人：{fromUser.name}</div>
-		<div>区域：{scope.name}</div>
+		<div>地点：{scope.name}</div>
 		<div>开始：{lightUp.gmtStartOff}</div>
 		<div>结束：{lightUp.gmtTill}</div>
 		<div>人数：{lightUp.seeds}</div>
