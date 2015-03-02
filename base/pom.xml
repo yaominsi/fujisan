@@ -85,7 +85,7 @@
 		<groupId>com.fujisan</groupId>
 		<artifactId>fujisan.all</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../fujisan.all</relativePath>
+		<relativePath>../all</relativePath>
 	</parent>
 	<build>
 		<plugins>
