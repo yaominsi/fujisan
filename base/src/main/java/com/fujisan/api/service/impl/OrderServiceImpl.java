@@ -74,7 +74,7 @@ public class OrderServiceImpl implements OrderService {
 		orderAssert.checkParams(requestContext, orderModel, BusiTypeEnum.create);
 		// 判断是否已经存在，如预约一个人15分钟后才可以再预约同一个人
 		orderAssert.enable(requestContext, orderModel, BusiTypeEnum.create);
-		orderRepository.save(orderModel);
+		orderRepository.saveModel(orderModel);
 		
 		//更新lightup数值信息
 		lightUpRepository.findAndInc(orderModel.getLightUpId(), LightUpModel.SIGNUPS, orderModel.getSeeds(), LightUpModel.class);
@@ -101,7 +101,7 @@ public class OrderServiceImpl implements OrderService {
 		model.setToUserId(requestContext.getUserModel().getId());
 		model.setGmtStatusTime(new Date());
 		model.setOperatorId(requestContext.getUserModel().getId());
-		orderRepository.save(model);
+		orderRepository.saveModel(model);
 		//更新lightup数值信息
 		model=orderRepository.findOne(orderId, OrderModel.class);
 		lightUpRepository.findAndInc(model.getLightUpId(), LightUpModel.ACCEPTS, model.getSeeds(), LightUpModel.class);
@@ -125,7 +125,7 @@ public class OrderServiceImpl implements OrderService {
 		orderModel.setGmtModified(new Date());
 		orderModel.setGmtStatusTime(new Date());
 		orderModel.setOperatorId(requestContext.getUserModel().getId());
-		orderRepository.save(orderModel);
+		orderRepository.saveModel(orderModel);
 		requestContext.setChangeTo(orderModel);
 		log.info("[order]finish ok " + seq);
 		return new Response<Boolean>(true, "预约已完成");
@@ -149,7 +149,7 @@ public class OrderServiceImpl implements OrderService {
 		model.setStatus(OrderStatusEnum.rejected);
 		model.setGmtStatusTime(new Date());
 		model.setOperatorId(requestContext.getUserModel().getId());
-		orderRepository.save(model);
+		orderRepository.saveModel(model);
 		requestContext.setChangeTo(model);
 		log.info("[order]reject ok " + seq);
 		return new Response<Boolean>(true, "已拒绝");
@@ -170,7 +170,7 @@ public class OrderServiceImpl implements OrderService {
 		model.setGmtModified(new Date());
 		model.setGmtStatusTime(new Date());
 		model.setOperatorId(requestContext.getUserModel().getId());
-		orderRepository.save(model);
+		orderRepository.saveModel(model);
 		requestContext.setChangeTo(model);
 		log.info("[order]gotOn ok " + seq);
 		return new Response<Boolean>(true, "已开始");
@@ -193,7 +193,7 @@ public class OrderServiceImpl implements OrderService {
 		model.setGmtModified(new Date());
 		model.setGmtStatusTime(new Date());
 		model.setOperatorId(requestContext.getUserModel().getId());
-		orderRepository.save(model);
+		orderRepository.saveModel(model);
 		requestContext.setChangeTo(model);
 		model=orderRepository.findOne(orderId, OrderModel.class);
 		lightUpRepository.findAndInc(model.getLightUpId(), LightUpModel.ACCEPTS, model.getSeeds()*-1, LightUpModel.class);

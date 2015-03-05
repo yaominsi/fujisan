@@ -67,7 +67,7 @@ public class NotifyServiceImpl implements NotifyService {
 		notifyModel.setToUserName(toUser.getName());
 		//
 		notifyModel.setStatus(NotifyStatusEnum.created);
-		notifyRepository.save(notifyModel);
+		notifyRepository.saveModel(notifyModel);
 		log.info("[notify create] ok"+requestContext.getSeq());
 		return new Response<Boolean>(true, "通知创建成功");
 	}
@@ -81,7 +81,7 @@ public class NotifyServiceImpl implements NotifyService {
 		//
 		notifyModel.setId(id);
 		notifyModel.setStatus(NotifyStatusEnum.read);
-		notifyRepository.save(notifyModel);
+		notifyRepository.saveModel(notifyModel);
 		log.info("[notify read] ok"+requestContext.getSeq());
 		return new Response<Boolean>(true, "标记为已读");
 	}
@@ -95,7 +95,7 @@ public class NotifyServiceImpl implements NotifyService {
 		//
 		notifyModel.setId(id);
 		notifyModel.setStatus(NotifyStatusEnum.todo);
-		notifyRepository.save(notifyModel);
+		notifyRepository.saveModel(notifyModel);
 		log.info("[notify read] ok"+requestContext.getSeq());
 		return new Response<Boolean>(true, "已标记为todo");
 	}
@@ -109,7 +109,7 @@ public class NotifyServiceImpl implements NotifyService {
 		//
 		notifyModel.setId(id);
 		notifyModel.setStatus(NotifyStatusEnum.finish);
-		notifyRepository.save(notifyModel);
+		notifyRepository.saveModel(notifyModel);
 		log.info("[notify read] ok"+requestContext.getSeq());
 		return new Response<Boolean>(true, "已标记为todo");
 	}
@@ -140,7 +140,7 @@ public class NotifyServiceImpl implements NotifyService {
 			if(NotifyStatusEnum.created.equals(notify.getStatus())){
 				notify.setGmtModified(new Date());
 				notify.setStatus(NotifyStatusEnum.read);
-				notifyRepository.save(notify);
+				notifyRepository.saveModel(notify);
 			}
 		}
 		return result;

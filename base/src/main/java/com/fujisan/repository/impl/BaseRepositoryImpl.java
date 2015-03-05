@@ -64,7 +64,7 @@ public class BaseRepositoryImpl<T extends BaseModel> extends SimpleMongoReposito
 		return new PageImpl<T>(list, pageable, count);
 	}
 	@Override
-	public T save(T entity) {
+	public T saveModel(T entity) {
 		if (entity.getId() != null) {
 			Update update=DaoUtil.genUpdate(entity);
 			Query query = Query.query(Criteria.where(BaseModel.final_idKey).is(entity.getId()));

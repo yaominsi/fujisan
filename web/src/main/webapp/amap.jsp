@@ -97,6 +97,9 @@ border:1px red solid;
 .bluebg{
 	color:#0e90d2;
 }
+td {
+	padding:3px;
+}
 </style>
 
 
@@ -269,7 +272,7 @@ border:1px red solid;
 	<!-- 活动编辑模板 -->
 	<script type="text/template" id="tpl_new_active">
 		<div id="div_new_active">
-			<div style="margin:15px auto;" title='输入活动名字'><input id="lightup_title" placeholder="输入活动名字,如拼车"/></div>
+			<div style="margin:15px auto;" title='输入活动名字'><input id="lightup_title" placeholder="输入活动名字,如周末摄影"/></div>
 			<div style="margin:15px auto;" title="选择活动地点"><a id="lightup_scopeId" style="cursor:pointer" >选择活动地点</a></div>
 			<div style="margin:15px auto;" title="地点"><a id="lightup_select_scopeId" style="cursor:pointer" ></a></div>
 			<div style="margin:15px auto;text-align:center" title="活动标签">
@@ -290,7 +293,9 @@ border:1px red solid;
 			</div>
 			<div style="margin:15px auto;"><input id="lightup_seeds" style=";" placeholder="报名人数上限" value="15"/></div>
 			<div style="margin:15px auto;"><label for="lightup_isLightUp" title="点亮，让更多人发现">点亮</label><input id="lightup_isLightUp" type="checkbox"/></div>
-			<div id="lightup_note" style="width:99%;text-align:left;border:5px"></div>
+			<div style="padding-left:20%">
+				<div id="lightup_note" style="width:80%;height:400px;text-align:left;border:5px"></div>
+			</div>
 			<div><a id="submit_lightup" style="margin-top:20px;padding:10px 30px">创建</a></div>
 		</div>
 	</script>
@@ -304,26 +309,30 @@ border:1px red solid;
 				<div>时间：{lightUp.gmtStartOff}>{lightUp.gmtTill}</div>
 				<div>报名比例：{lightUp.accepts}/{lightUp.seeds}</div>
 				<a href="#" onclick="createOrder('{lightUp.id}')" id="createOrder">我要参与</a>
-				<div>{lightUp.note}</div>
 			<div>
 		</div>
 	</script>
 	<!---我的订单列表-->
 	<script type="text/template" id="tpl_order_list">
 		<div id="div_order_list">
-			<ol id="ul_order_list"  style="width:90%;margin-top:20px;text-align:left">
-			</ol>
+			<table id="ul_order_list"  style="width:90%;margin-top:20px;border:1px;">
+				<thead>
+					<td>主题</td>
+					<td>地点</td>
+					<td>起止时间</td>
+					<td>状态</td>
+				</thead>
+			</table>
+			<a id="more_orders" pageNo="1">加载更多</a>
 		</div>
 	<!---订单明细-->
 	<script type="text/template" id="tpl_order_detail">
-		<li>
-			<div>发起人：{toUser.name}</div>
-			<div>地点：{scope.name}</div>
-			<div>主题：{lightUp.title}</div>
-			<div>开始：{lightUp.gmtStartOff}</div>
-			<div>结束：{lightUp.gmtTill}</div>
-			<div>状态：{order.status}</div>
-		</li>
+		<tr>
+			<td>{lightUp.title}</td>
+			<td>{scope.name}</td>
+			<td>{lightUp.gmtStartOff} - {lightUp.gmtTill}</td>
+			<td>{order.status}</td>
+		</tr>
 	</script>
 	<!---我的活动明细-->
 	<script type="text/template" id="tpl_my_active_detail">

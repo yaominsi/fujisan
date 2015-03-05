@@ -56,13 +56,13 @@ public class UserServiceImpl implements UserService {
 		userModel.setGmtCreate(new Date());
 		userModel.setModifier(requestContext.getUserModel().getName());
 		userModel.setIsDeleted(BooleanAbout.n);
-		userRepository.save(userModel);
+		userRepository.saveModel(userModel);
 		if(CollectionUtils.isNotEmpty(userModel.getTags())){
 			for(TagModel t:userModel.getTags()){
 				tagAssert.checkParams(requestContext, t, BusiTypeEnum.create);
 				t.setTargetId(userModel.getId());
 				t.setTargetType("user");
-				tagRepository.save(t);
+				tagRepository.saveModel(t);
 			}
 		}
 		log.info("[user] registry ok "+seq);
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
 		userAssert.enable(requestContext, userModel, BusiTypeEnum.update);
 		userModel.setGmtModified(new Date());
 		userModel.setModifier(requestContext.getUserModel().getName());
-		userRepository.save(userModel);
+		userRepository.saveModel(userModel);
 		log.info("[user] update ok "+seq);
 		return new Response<Boolean>(true, StringUtils.EMPTY);
 	}
@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		for (TagModel t : tags) {
-			tagRepository.save(t);
+			tagRepository.saveModel(t);
 		}
 		log.info("[user] updateTages ok "+seq);
 		return new Response<Boolean>(true, StringUtils.EMPTY);
