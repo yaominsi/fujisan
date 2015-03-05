@@ -3,9 +3,11 @@ define(function(require,exports){
 	function loadOrder() {
     	push_div('left_bar_order');
 		$('#div_my_order').html($('#tpl_order_list').html());
+		$('#more_orders').attr('pageNo',0);
+		$('#more_orders').click(loadOrder2);
 		$.ajax(
             {
-              url:"/order/listFromMe.action", 
+              url:"/order/0/listFromMe.action", 
               type: "POST", 
               data: null,
               success: function(data){
@@ -20,6 +22,35 @@ define(function(require,exports){
       							//active_detail($(this).attr('val'));
       						}
       					);
+      				}
+      			}, 
+              dataType: "json",
+              contentType: "application/json"
+            } );  
+		
+	};
+	function loadOrder2() {
+		var pageNo=$('#more_orders').attr('pageNo');
+		$.ajax(
+            {
+              url:"/order/"+pageNo+"/listFromMe.action", 
+              type: "POST", 
+              data: null,
+              success: function(data){
+      				if(data.success&&data.value&&data.value.content){
+      					$(data.value.content).each(function(){
+      						var str = nano($('#tpl_order_detail').html(),this);
+      						$(str).appendTo($('#ul_order_list'));
+      						$('#more_orders').attr('pageNo',eval(pageNo)+1);
+      					});
+      					//初始化
+      					$('#ul_order_list li').click(
+      						function(){
+      							//active_detail($(this).attr('val'));
+      						}
+      					);
+      				}else{
+      					alert('就这么多了');
       				}
       			}, 
               dataType: "json",

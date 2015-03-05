@@ -89,7 +89,7 @@ public class LightUpServiceImpl implements LightUpService {
 			lightUpAssert.checkParams(requestContext, lightupModel, BusiTypeEnum.create);
 		}
 		lightUpAssert.enable(requestContext, lightupModel, BusiTypeEnum.create);
-		lightUpRepository.save(lightupModel);
+		lightUpRepository.saveModel(lightupModel);
 		log.info("[light_up_save] ok" + seq);
 		return new Response<Boolean>(true, "保存成功");
 	}
@@ -107,7 +107,7 @@ public class LightUpServiceImpl implements LightUpService {
 		lightupModel.setGmtLightUp(new Date());
 		//
 		lightUpAssert.enable(requestContext, lightupModel, BusiTypeEnum.lightoff);
-		lightUpRepository.save(lightupModel);
+		lightUpRepository.saveModel(lightupModel);
 		log.info("[light_up] ok " + seq);
 		return new Response<Boolean>(true, "已关闭");
 	}
@@ -123,7 +123,7 @@ public class LightUpServiceImpl implements LightUpService {
 		lightupModel.setModifier(requestContext.getUserModel().getName());
 		lightupModel.setGmtLightUp(new Date());
 		lightUpAssert.enable(requestContext, lightupModel, BusiTypeEnum.lightup);
-		lightUpRepository.save(lightupModel);
+		lightUpRepository.saveModel(lightupModel);
 		log.info("[light_up] ok " + seq);
 		return new Response<Boolean>(true, "已点亮");
 	}

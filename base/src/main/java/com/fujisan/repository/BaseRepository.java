@@ -58,7 +58,7 @@ public interface BaseRepository<T extends BaseModel> {
 	 * @param entity
 	 * @return
 	 */
-	public T save(T entity);
+	public T saveModel(T entity);
 	/**
 	 * 查询指定的记录
 	 * @param id

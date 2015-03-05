@@ -64,7 +64,7 @@ public class ScopeServiceImpl implements ScopeService {
 		scopeModel.setCreatorId(requestContext.getUserModel().getId());
 		scopeModel.setIsDeleted(BooleanAbout.n);
 		scopeAssert.enable(requestContext, scopeModel, BusiTypeEnum.create);
-		scopeRepository.save(scopeModel);
+		scopeRepository.saveModel(scopeModel);
 		if (CollectionUtils.isNotEmpty(scopeModel.getNodes())) {
 			// setup nodes
 			int order = 0;
@@ -80,7 +80,7 @@ public class ScopeServiceImpl implements ScopeService {
 					node.setOrder(order);
 					order += 10;
 				}
-				nodeRepository.save(node);
+				nodeRepository.saveModel(node);
 			}
 		}
 		log.info("[scope] create ok " + requestContext.getSeq());
@@ -97,7 +97,7 @@ public class ScopeServiceImpl implements ScopeService {
 		scopeAssert.enable(requestContext, scopeModel, BusiTypeEnum.update);
 		scopeModel.setModifier(requestContext.getUserModel().getName());
 		scopeModel.setGmtModified(new Date());
-		scopeRepository.save(scopeModel);
+		scopeRepository.saveModel(scopeModel);
 		// check
 		for (NodeModel node : nodeModels) {
 			if (node.getId() == null)
@@ -107,7 +107,7 @@ public class ScopeServiceImpl implements ScopeService {
 		// 更新结点
 		//
 		for (NodeModel node : nodeModels) {
-			nodeRepository.save(node);
+			nodeRepository.saveModel(node);
 		}
 		log.info("[scope] update node ok " + requestContext.getSeq());
 		return new Response<Boolean>(true, "区域结点已更新");
@@ -121,7 +121,7 @@ public class ScopeServiceImpl implements ScopeService {
 		scopeAssert.enable(requestContext, scopeModel, BusiTypeEnum.update);
 		scopeModel.setGmtModified(new Date());
 		scopeModel.setModifier(requestContext.getUserModel().getName());
-		scopeRepository.save(scopeModel);
+		scopeRepository.saveModel(scopeModel);
 		log.info("[scope] update ok " + requestContext.getSeq());
 		return new Response<Boolean>(true, "更新线路");
 	}
@@ -136,7 +136,7 @@ public class ScopeServiceImpl implements ScopeService {
 		scopeModel.setGmtCreate(new Date());
 		scopeModel.setModifier(requestContext.getUserModel().getName());
 		scopeModel.setIsDeleted(BooleanAbout.y);
-		scopeRepository.save(scopeModel);
+		scopeRepository.saveModel(scopeModel);
 		log.info("[scope] delete ok " + requestContext.getSeq());
 		return new Response<Boolean>(true, "移除线路");
 	}
