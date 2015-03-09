@@ -89,11 +89,7 @@ public class ActivityServiceImpl implements ActivityService {
 			lightUpAssert.checkParams(requestContext, lightupModel, BusiTypeEnum.create);
 		}
 		lightUpAssert.enable(requestContext, lightupModel, BusiTypeEnum.create);
-<<<<<<< HEAD:base/src/main/java/com/fujisan/api/service/impl/LightUpServiceImpl.java
-		lightUpRepository.saveModel(lightupModel);
-=======
-		activityRepository.save(lightupModel);
->>>>>>> new-page:base/src/main/java/com/fujisan/api/service/impl/ActivityServiceImpl.java
+		activityRepository.saveModel(lightupModel);
 		log.info("[light_up_save] ok" + seq);
 		return new Response<Boolean>(true, "保存成功");
 	}
@@ -111,11 +107,7 @@ public class ActivityServiceImpl implements ActivityService {
 		lightupModel.setGmtLightUp(new Date());
 		//
 		lightUpAssert.enable(requestContext, lightupModel, BusiTypeEnum.lightoff);
-<<<<<<< HEAD:base/src/main/java/com/fujisan/api/service/impl/LightUpServiceImpl.java
-		lightUpRepository.saveModel(lightupModel);
-=======
-		activityRepository.save(lightupModel);
->>>>>>> new-page:base/src/main/java/com/fujisan/api/service/impl/ActivityServiceImpl.java
+		activityRepository.saveModel(lightupModel);
 		log.info("[light_up] ok " + seq);
 		return new Response<Boolean>(true, "已关闭");
 	}
@@ -131,11 +123,7 @@ public class ActivityServiceImpl implements ActivityService {
 		lightupModel.setModifier(requestContext.getUserModel().getName());
 		lightupModel.setGmtLightUp(new Date());
 		lightUpAssert.enable(requestContext, lightupModel, BusiTypeEnum.lightup);
-<<<<<<< HEAD:base/src/main/java/com/fujisan/api/service/impl/LightUpServiceImpl.java
-		lightUpRepository.saveModel(lightupModel);
-=======
-		activityRepository.save(lightupModel);
->>>>>>> new-page:base/src/main/java/com/fujisan/api/service/impl/ActivityServiceImpl.java
+		activityRepository.saveModel(lightupModel);
 		log.info("[light_up] ok " + seq);
 		return new Response<Boolean>(true, "已点亮");
 	}

@@ -45,7 +45,7 @@ public class TopicServiceImpl implements TopicService {
 			topicModel.setGmtCreate(new Date());
 			topicModel.setIsDeleted(BooleanAbout.n);
 		}
-		topicRepository.save(topicModel);
+		topicRepository.saveModel(topicModel);
 		Response<Boolean> result = new Response<Boolean>();
 		result.setSuccess(true);
 		return result;

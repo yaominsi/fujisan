@@ -44,7 +44,7 @@ public class TagServiceImpl implements TagService {
 			tagModel.setGmtCreate(new Date());
 			tagModel.setIsDeleted(BooleanAbout.n);
 		}
-		tagRepository.save(tagModel);
+		tagRepository.saveModel(tagModel);
 		Response<Boolean> result = new Response<Boolean>();
 		result.setSuccess(true);
 		return result;

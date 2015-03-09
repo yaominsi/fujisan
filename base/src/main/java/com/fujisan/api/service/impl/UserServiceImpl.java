@@ -62,13 +62,10 @@ public class UserServiceImpl implements UserService {
 			for(TagModel t:userModel.getTags()){
 				tagAssert.checkParams(requestContext, t, BusiTypeEnum.create);
 				t.setTargetId(userModel.getId());
-<<<<<<< HEAD
-				t.setTargetType("user");
-				tagRepository.saveModel(t);
-=======
 				t.setTargetType(TagTargetTypeEnum.user);
-				tagRepository.save(t);
->>>>>>> new-page
+				tagRepository.saveModel(t);
+				t.setTargetType(TagTargetTypeEnum.user);
+				tagRepository.saveModel(t);
 			}
 		}
 		log.info("[user] registry ok "+seq);
