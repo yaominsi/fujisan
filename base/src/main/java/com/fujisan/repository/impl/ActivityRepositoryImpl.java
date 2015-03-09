@@ -7,8 +7,8 @@ import org.springframework.data.mongodb.repository.query.MongoEntityInformation;
 import org.springframework.data.mongodb.repository.support.MongoRepositoryFactory;
 import org.springframework.stereotype.Repository;
 
-import com.fujisan.model.LightUpModel;
-import com.fujisan.repository.LightUpRepository;
+import com.fujisan.model.ActivityModel;
+import com.fujisan.repository.ActivityRepository;
 
 /**
  * 服务提供者
@@ -16,15 +16,15 @@ import com.fujisan.repository.LightUpRepository;
  * @author siyaomin
  *
  */
-@Repository("lightUpRepository")
-public class LightUpRepositoryImpl extends BaseRepositoryImpl<LightUpModel> implements
-		LightUpRepository {
+@Repository("activityRepository")
+public class ActivityRepositoryImpl extends BaseRepositoryImpl<ActivityModel> implements
+		ActivityRepository {
 	@Autowired
-    public LightUpRepositoryImpl(MongoRepositoryFactory factory, MongoOperations mongoOperations) {
-        this(factory.<LightUpModel, String>getEntityInformation(LightUpModel.class), mongoOperations);
+    public ActivityRepositoryImpl(MongoRepositoryFactory factory, MongoOperations mongoOperations) {
+        this(factory.<ActivityModel, String>getEntityInformation(ActivityModel.class), mongoOperations);
     }
 
-	public LightUpRepositoryImpl(MongoEntityInformation<LightUpModel, String> metadata,
+	public ActivityRepositoryImpl(MongoEntityInformation<ActivityModel, String> metadata,
 			MongoOperations mongoOperations) {
 		super(metadata, mongoOperations);
 	}

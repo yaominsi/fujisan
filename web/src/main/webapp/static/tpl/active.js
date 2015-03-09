@@ -1,5 +1,6 @@
 //
 define(function(require,exports){
+	require("jquery");
 	var active_detail= function(id){
 		$.ajax(
             {
@@ -10,6 +11,21 @@ define(function(require,exports){
               				if(data.success&&data.value){
               					var str=nano($('#tpl_active_detail').html(),data.value);
 								$('#detail_'+id).html(str);
+              				}
+              			}, 
+              dataType: "json",
+              contentType: "application/json"
+            } );  
+	};
+	var loadActiveTypes= function(callback){
+		$.ajax(
+            {
+              url:"/lightup/types.action", 
+              type: "POST", 
+              data: null,
+              success: function(data){
+              				if(data.success&&data.value){
+              					callback(null,data.value);
               				}
               			}, 
               dataType: "json",
@@ -187,6 +203,7 @@ define(function(require,exports){
 		
 	};
 	exports.bind=bind;
+	exports.loadActiveTypes=loadActiveTypes;
 	window.showLightUpOrders=showLightUpOrders;
 	window.showMyLightUpDetail=showMyLightUpDetail;
 });

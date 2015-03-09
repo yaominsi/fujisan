@@ -37,7 +37,6 @@ public class DaoUtil {
 	 */
 	public static Query genQuery(Object target, List<String> properties) {
 		
-		Assert.notNull(target);
 		Query query=new Query();
 		query.addCriteria(Criteria.where(BaseModel.final_isDeleted).is(BooleanAbout.n));
 		if (target == null) {

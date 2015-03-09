@@ -10,22 +10,22 @@ import com.fujisan.common.BeanHelper;
 import com.fujisan.common.BooleanAbout;
 import com.fujisan.common.BusiTypeEnum;
 import com.fujisan.common.OperateTypeEnum;
-import com.fujisan.model.LightUpModel;
-import com.fujisan.repository.LightUpRepository;
+import com.fujisan.model.ActivityModel;
+import com.fujisan.repository.ActivityRepository;
 /**
  * 司机邀请的断言
  * @author siyaomin
  *
  */
 @Component
-public class LightUpAssert implements DomainServiceAssert<LightUpModel> {
+public class ActivityAssert implements DomainServiceAssert<ActivityModel> {
 	@Autowired
-	private LightUpRepository lightUpRepository;
+	private ActivityRepository activityRepository;
 	private final BusiTypeEnum scene=BusiTypeEnum.lightup;
 	// #set
 
 	@Override
-	public void checkParams(RequestContext requestContext, LightUpModel model, BusiTypeEnum busiTypeEnum) {
+	public void checkParams(RequestContext requestContext, ActivityModel model, BusiTypeEnum busiTypeEnum) {
 		Assert.notNull(model);
 		if (BusiTypeEnum.create.equals(busiTypeEnum)) {
 			String result = BeanHelper.checkFieldsNotEmpty(model, model.needFieldsForCreate());
@@ -39,18 +39,18 @@ public class LightUpAssert implements DomainServiceAssert<LightUpModel> {
 
 	@Override
 	public void exists(RequestContext requestContext, String id) {
-			LightUpModel res = lightUpRepository.findOne(id,LightUpModel.class);
+			ActivityModel res = activityRepository.findOne(id,ActivityModel.class);
 			if (res==null) {
 				throw new AssertException(scene,OperateTypeEnum.find, "找不到指定的对象", id);
 			}
 	}
 
 	@Override
-	public void enable(RequestContext requestContext, LightUpModel model, BusiTypeEnum busiTypeEnum) {
+	public void enable(RequestContext requestContext, ActivityModel model, BusiTypeEnum busiTypeEnum) {
 		Assert.notNull(model);
-		LightUpModel res =null;
+		ActivityModel res =null;
 		if (model.getId()!=null) {
-			res = lightUpRepository.findOne(model.getId(),LightUpModel.class);
+			res = activityRepository.findOne(model.getId(),ActivityModel.class);
 			if (res==null) {
 				throw new AssertException(scene,OperateTypeEnum.update, "找不到指定的对象", model.getId());
 			}

@@ -17,10 +17,10 @@ import com.fujisan.common.OperateTypeEnum;
 import com.fujisan.common.OrderStatusEnum;
 import com.fujisan.common.TimeUtil;
 import com.fujisan.model.BaseModel;
-import com.fujisan.model.LightUpModel;
+import com.fujisan.model.ActivityModel;
 import com.fujisan.model.OrderModel;
 import com.fujisan.model.UserModel;
-import com.fujisan.repository.LightUpRepository;
+import com.fujisan.repository.ActivityRepository;
 import com.fujisan.repository.OrderRepository;
 import com.fujisan.repository.UserRepository;
 import com.google.common.collect.Lists;
@@ -38,7 +38,7 @@ public class OrderAssert implements DomainServiceAssert<OrderModel> {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private LightUpRepository lightUpRepository;
+	private ActivityRepository activityRepository;
 	private final BusiTypeEnum scene=BusiTypeEnum.order;
 	/**
 	 * 参数 验证
@@ -77,7 +77,7 @@ public class OrderAssert implements DomainServiceAssert<OrderModel> {
 				throw new AssertException(scene,OperateTypeEnum.create, "该同学不接收预约信息", model.getToUserId());
 			}
 			//结点是否点亮
-			LightUpModel lightUpModel=lightUpRepository.findOne(model.getLightUpId(),LightUpModel.class);
+			ActivityModel lightUpModel=activityRepository.findOne(model.getLightUpId(),ActivityModel.class);
 			if(lightUpModel==null){
 				throw new AssertException(scene,OperateTypeEnum.create, "找不到点亮信息", model.getLightUpId());
 			}

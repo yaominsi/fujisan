@@ -2,7 +2,7 @@ package com.fujisan.api;
 
 import java.io.Serializable;
 
-import com.fujisan.model.LightUpModel;
+import com.fujisan.model.ActivityModel;
 import com.fujisan.model.ScopeModel;
 import com.fujisan.model.UserModel;
 
@@ -12,21 +12,21 @@ import com.fujisan.model.UserModel;
  * @author siyaomin
  *
  */
-public class LightUpDetail implements Serializable {
+public class ActivityDetail implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	// 活动的基础信息
-	private LightUpModel lightUp;
+	private ActivityModel lightUp;
 	//发起人
 	private UserModel fromUser;
 	//发起区域
 	private ScopeModel scope;
 	
-	public LightUpModel getLightUp() {
+	public ActivityModel getLightUp() {
 		return lightUp;
 	}
 
-	public void setLightUp(LightUpModel lightUp) {
+	public void setLightUp(ActivityModel lightUp) {
 		this.lightUp = lightUp;
 	}
 
