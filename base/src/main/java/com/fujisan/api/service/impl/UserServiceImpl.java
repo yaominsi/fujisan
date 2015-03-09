@@ -16,6 +16,7 @@ import com.fujisan.api.service.asserts.Assert;
 import com.fujisan.api.service.asserts.DomainServiceAssert;
 import com.fujisan.common.BooleanAbout;
 import com.fujisan.common.BusiTypeEnum;
+import com.fujisan.common.TagTargetTypeEnum;
 import com.fujisan.model.TagModel;
 import com.fujisan.model.UserModel;
 import com.fujisan.repository.TagRepository;
@@ -61,8 +62,13 @@ public class UserServiceImpl implements UserService {
 			for(TagModel t:userModel.getTags()){
 				tagAssert.checkParams(requestContext, t, BusiTypeEnum.create);
 				t.setTargetId(userModel.getId());
+<<<<<<< HEAD
 				t.setTargetType("user");
 				tagRepository.saveModel(t);
+=======
+				t.setTargetType(TagTargetTypeEnum.user);
+				tagRepository.save(t);
+>>>>>>> new-page
 			}
 		}
 		log.info("[user] registry ok "+seq);

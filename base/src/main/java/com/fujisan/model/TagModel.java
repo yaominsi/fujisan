@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fujisan.common.TagTargetTypeEnum;
 import com.google.common.collect.Lists;
 /**
  * ±Í«©±Ì
@@ -15,9 +16,11 @@ public class TagModel extends BaseModel {
 
 	private static final long serialVersionUID = 1L;
 	private String targetId;
-	private String targetType;//user,topic
+	private TagTargetTypeEnum targetType;//user,topic
+	private String ownerUserId;
 	private String content;
-	public TagModel(String targetId,String targetType,String content){
+	public TagModel(){}
+	public TagModel(String targetId,TagTargetTypeEnum targetType,String content){
 		this.targetId=targetId;
 		this.targetType=targetType;
 		this.content=content;
@@ -37,10 +40,10 @@ public class TagModel extends BaseModel {
 	public void setTargetId(String targetId) {
 		this.targetId = targetId;
 	}
-	public String getTargetType() {
+	public TagTargetTypeEnum getTargetType() {
 		return targetType;
 	}
-	public void setTargetType(String targetType) {
+	public void setTargetType(TagTargetTypeEnum targetType) {
 		this.targetType = targetType;
 	}
 	public String getContent() {
@@ -48,6 +51,12 @@ public class TagModel extends BaseModel {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getOwnerUserId() {
+		return ownerUserId;
+	}
+	public void setOwnerUserId(String ownerUserId) {
+		this.ownerUserId = ownerUserId;
 	}
 
 }

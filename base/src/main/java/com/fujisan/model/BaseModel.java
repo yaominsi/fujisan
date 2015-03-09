@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fujisan.common.JsonTimeFormat;
 /**
  * »ù´¡Ä£ÐÍ
  * @author siyaomin

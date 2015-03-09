@@ -22,12 +22,12 @@ import com.fujisan.common.BooleanAbout;
 import com.fujisan.common.BusiTypeEnum;
 import com.fujisan.common.NotifyTypeEnum;
 import com.fujisan.common.OrderStatusEnum;
-import com.fujisan.model.LightUpModel;
+import com.fujisan.model.ActivityModel;
 import com.fujisan.model.OrderModel;
 import com.fujisan.model.ScopeModel;
 import com.fujisan.model.UserModel;
 import com.fujisan.notify.NeedNotify;
-import com.fujisan.repository.LightUpRepository;
+import com.fujisan.repository.ActivityRepository;
 import com.fujisan.repository.OrderRepository;
 import com.fujisan.repository.ScopeRepository;
 import com.fujisan.repository.UserRepository;
@@ -48,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private ScopeRepository scopeRepository;
 	@Autowired
-	private LightUpRepository lightUpRepository;
+	private ActivityRepository activityRepository;
 	@Autowired
 	private UserRepository userRepository;
 	@Override
@@ -68,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
 		orderModel.setIsDeleted(BooleanAbout.n);
 		//
 		Assert.notNull(orderModel.getLightUpId(),"请指定点亮区");
-		LightUpModel lightUp = lightUpRepository.findOne(orderModel.getLightUpId(), LightUpModel.class);
+		ActivityModel lightUp = activityRepository.findOne(orderModel.getLightUpId(), ActivityModel.class);
 		Assert.notNull(lightUp,"找不到指定的区域");
 		orderModel.setToUserId(lightUp.getCreatorId());
 		orderAssert.checkParams(requestContext, orderModel, BusiTypeEnum.create);
@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
 		orderRepository.saveModel(orderModel);
 		
 		//更新lightup数值信息
-		lightUpRepository.findAndInc(orderModel.getLightUpId(), LightUpModel.SIGNUPS, orderModel.getSeeds(), LightUpModel.class);
+		activityRepository.findAndInc(orderModel.getLightUpId(), ActivityModel.SIGNUPS, orderModel.getSeeds(), ActivityModel.class);
 		requestContext.setChangeTo(orderModel);
 		log.info("[order]create ok" + seq);
 		return new Response<Boolean>(true, "预约已发出");
@@ -104,7 +104,7 @@ public class OrderServiceImpl implements OrderService {
 		orderRepository.saveModel(model);
 		//更新lightup数值信息
 		model=orderRepository.findOne(orderId, OrderModel.class);
-		lightUpRepository.findAndInc(model.getLightUpId(), LightUpModel.ACCEPTS, model.getSeeds(), LightUpModel.class);
+		activityRepository.findAndInc(model.getLightUpId(), ActivityModel.ACCEPTS, model.getSeeds(), ActivityModel.class);
 		requestContext.setChangeTo(model);
 		log.info("[order] accept ok " + seq);
 		return new Response<Boolean>(true, "接收预约");
@@ -196,7 +196,7 @@ public class OrderServiceImpl implements OrderService {
 		orderRepository.saveModel(model);
 		requestContext.setChangeTo(model);
 		model=orderRepository.findOne(orderId, OrderModel.class);
-		lightUpRepository.findAndInc(model.getLightUpId(), LightUpModel.ACCEPTS, model.getSeeds()*-1, LightUpModel.class);
+		activityRepository.findAndInc(model.getLightUpId(), ActivityModel.ACCEPTS, model.getSeeds()*-1, ActivityModel.class);
 		log.info("[order]cancel ok " + seq);
 		return new Response<Boolean>(true, "已取消");
 	}
@@ -222,7 +222,7 @@ public class OrderServiceImpl implements OrderService {
 				if(StringUtils.isNotBlank(order.getToUserId()))
 					detail.setToUser(userRepository.findOne(order.getToUserId(),UserModel.class));
 				if(StringUtils.isNotBlank(order.getLightUpId()));
-					detail.setLightUp(lightUpRepository.findOne(order.getLightUpId(), LightUpModel.class));
+					detail.setLightUp(activityRepository.findOne(order.getLightUpId(), ActivityModel.class));
 				if(detail.getLightUp()!=null&&StringUtils.isNotBlank(detail.getLightUp().getScopeId()));
 					detail.setScope(scopeRepository.findOne(detail.getLightUp().getScopeId(), ScopeModel.class));
 			}

@@ -25,8 +25,8 @@ import com.google.common.collect.Lists;
  * @author siyaomin
  *
  */
-@Document(collection = "lightups")
-public class LightUpModel extends BaseModel {
+@Document(collection = "activitys")
+public class ActivityModel extends BaseModel {
 	public static final String SIGNUPS = "signUps";
 	private static final long serialVersionUID = 1L;
 	public static final String ACCEPTS = "accepts";
@@ -56,11 +56,11 @@ public class LightUpModel extends BaseModel {
 	
 	
 
-	public LightUpModel(String id) {
+	public ActivityModel(String id) {
 		this.id = id;
 	}
 
-	public LightUpModel() {
+	public ActivityModel() {
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class LightUpModel extends BaseModel {
 	 * @param gmtStartOff
 	 * @param gmtTill
 	 */
-	public LightUpModel(String scopeId, String title, Date gmtStartOff, Date gmtTill) {
+	public ActivityModel(String scopeId, String title, Date gmtStartOff, Date gmtTill) {
 		this.scopeId = scopeId;
 		this.title = title;
 		this.gmtStartOff = gmtStartOff;

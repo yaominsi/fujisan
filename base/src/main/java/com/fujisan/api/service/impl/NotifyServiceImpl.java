@@ -22,11 +22,11 @@ import com.fujisan.common.BooleanAbout;
 import com.fujisan.common.NotifyStatusEnum;
 import com.fujisan.common.NotifyTypeEnum;
 import com.fujisan.model.BaseModel;
-import com.fujisan.model.LightUpModel;
+import com.fujisan.model.ActivityModel;
 import com.fujisan.model.NotifyModel;
 import com.fujisan.model.OrderModel;
 import com.fujisan.model.UserModel;
-import com.fujisan.repository.LightUpRepository;
+import com.fujisan.repository.ActivityRepository;
 import com.fujisan.repository.NotifyRepository;
 import com.fujisan.repository.OrderRepository;
 import com.fujisan.repository.UserRepository;
@@ -47,7 +47,7 @@ public class NotifyServiceImpl implements NotifyService {
 	@Autowired
 	private OrderRepository orderRepository;
 	@Autowired
-	private LightUpRepository lightUpRepository;
+	private ActivityRepository activityRepository;
 	private static final Logger log=Logger.getLogger(NotifyServiceImpl.class);
 	@Override
 	public Response<Boolean> create(RequestContext requestContext, NotifyModel notifyModel) {
@@ -132,7 +132,7 @@ public class NotifyServiceImpl implements NotifyService {
 			if (NotifyTypeEnum.order.equals(notify.getType())) {
 				OrderModel order = orderRepository.findOne(notify.getTargetId(), OrderModel.class);
 				value.setOrder(order);
-				value.setLightUp(lightUpRepository.findOne(order.getLightUpId(), LightUpModel.class));
+				value.setLightUp(activityRepository.findOne(order.getLightUpId(), ActivityModel.class));
 			}
 			result.setValue(value);
 			

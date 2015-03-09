@@ -9,6 +9,7 @@ import com.fujisan.api.RequestContext;
 import com.fujisan.api.Response;
 import com.fujisan.api.service.UserService;
 import com.fujisan.common.BooleanAbout;
+import com.fujisan.common.TagTargetTypeEnum;
 import com.fujisan.model.TagModel;
 import com.fujisan.model.UserModel;
 /**
@@ -33,7 +34,7 @@ public class UserServiceTest extends BaseTest{
 		userModel.setAllowInvited("y");
 		List<TagModel> tags=new ArrayList<TagModel>();
 		
-		TagModel e=new TagModel("68959","user","content");
+		TagModel e=new TagModel("68959",TagTargetTypeEnum.user,"content");
 		tags.add(e);
 		userModel.setTags(tags);
 		service.registry(requestContext, userModel);
@@ -54,13 +55,13 @@ public class UserServiceTest extends BaseTest{
 		userModel.setAllowInvited("y");
 		List<TagModel> tags=new ArrayList<TagModel>();
 		
-		TagModel e=new TagModel("68959","user","content");
+		TagModel e=new TagModel("68959",TagTargetTypeEnum.user,"content");
 		tags.add(e);
 		userModel.setTags(tags);
 		service.update(requestContext, userModel);
 		Response<UserModel> res = service.getUserByUserId(requestContext, userModel.getId());
 		System.out.println(res.getValue());
-		TagModel t=new TagModel("68959","user","content");
+		TagModel t=new TagModel("68959",TagTargetTypeEnum.user,"content");
 		t.setIsDeleted(BooleanAbout.y);
 		tags.add(t);
 		service.updateTages(requestContext, userModel.getId(), tags);

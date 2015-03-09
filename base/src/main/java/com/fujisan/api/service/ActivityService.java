@@ -7,10 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 
-import com.fujisan.api.LightUpDetail;
+import com.fujisan.api.ActivityDetail;
 import com.fujisan.api.RequestContext;
 import com.fujisan.api.Response;
-import com.fujisan.model.LightUpModel;
+import com.fujisan.model.ActivityModel;
 
 /**
  * 点亮服务
@@ -18,7 +18,7 @@ import com.fujisan.model.LightUpModel;
  * @author siyaomin
  *
  */
-public interface LightUpService {
+public interface ActivityService {
 	/**
 	 * 点亮线路
 	 * 
@@ -26,7 +26,7 @@ public interface LightUpService {
 	 * @param pathModel
 	 * @return
 	 */
-	public Response<Boolean> save(RequestContext requestContext, LightUpModel lightupModel);
+	public Response<Boolean> save(RequestContext requestContext, ActivityModel lightupModel);
 
 	/**
 	 * 关闭线路
@@ -49,7 +49,7 @@ public interface LightUpService {
 	 * @param pageable
 	 * @return
 	 */
-	public Page<LightUpModel> find(RequestContext requestContext, LightUpModel model, List<String> properties,
+	public Page<ActivityModel> find(RequestContext requestContext, ActivityModel model, List<String> properties,
 			Direction direction, List<String> sortProperties, Pageable pageable);
 	/**
 	 * 点亮
@@ -65,7 +65,7 @@ public interface LightUpService {
 	 * @param id
 	 * @return
 	 */
-	public Response<LightUpDetail> detail(RequestContext requestContext, String id);
-	public Page<LightUpDetail> findWithDetail(RequestContext current, LightUpModel lightUpModel, List<String> properties,
+	public Response<ActivityDetail> detail(RequestContext requestContext, String id);
+	public Page<ActivityDetail> findWithDetail(RequestContext current, ActivityModel lightUpModel, List<String> properties,
 			Direction direction, List<String> sortProperties, Pageable pageable);
 }

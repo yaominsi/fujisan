@@ -14,21 +14,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.fujisan.api.LightUpDetail;
+import com.fujisan.api.ActivityDetail;
 import com.fujisan.api.RequestContext;
 import com.fujisan.api.Response;
-import com.fujisan.api.service.LightUpService;
+import com.fujisan.api.service.ActivityService;
 import com.fujisan.api.service.asserts.Assert;
 import com.fujisan.api.service.asserts.DomainServiceAssert;
 import com.fujisan.api.service.asserts.exception.AssertException;
 import com.fujisan.common.BooleanAbout;
 import com.fujisan.common.BusiTypeEnum;
 import com.fujisan.common.TimeUtil;
-import com.fujisan.model.LightUpModel;
+import com.fujisan.model.ActivityModel;
 import com.fujisan.model.NodeModel;
 import com.fujisan.model.ScopeModel;
 import com.fujisan.model.UserModel;
-import com.fujisan.repository.LightUpRepository;
+import com.fujisan.repository.ActivityRepository;
 import com.fujisan.repository.NodeRepository;
 import com.fujisan.repository.ScopeRepository;
 import com.fujisan.repository.UserRepository;
@@ -41,10 +41,10 @@ import com.google.common.collect.Lists;
  *
  */
 @Service
-public class LightUpServiceImpl implements LightUpService {
-	private static final Logger log = Logger.getLogger(LightUpServiceImpl.class);
+public class ActivityServiceImpl implements ActivityService {
+	private static final Logger log = Logger.getLogger(ActivityServiceImpl.class);
 	@Autowired
-	private LightUpRepository lightUpRepository;
+	private ActivityRepository activityRepository;
 	@Autowired
 	private NodeRepository nodeRepository;
 	@Autowired
@@ -52,10 +52,10 @@ public class LightUpServiceImpl implements LightUpService {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private DomainServiceAssert<LightUpModel> lightUpAssert;
+	private DomainServiceAssert<ActivityModel> lightUpAssert;
 
 	@Override
-	public Response<Boolean> save(RequestContext requestContext, LightUpModel lightupModel) {
+	public Response<Boolean> save(RequestContext requestContext, ActivityModel lightupModel) {
 		String seq = requestContext.getSeq();
 		log.info("[light_up_save] start " + seq);
 		// 没有id则创建模型
@@ -89,7 +89,11 @@ public class LightUpServiceImpl implements LightUpService {
 			lightUpAssert.checkParams(requestContext, lightupModel, BusiTypeEnum.create);
 		}
 		lightUpAssert.enable(requestContext, lightupModel, BusiTypeEnum.create);
+<<<<<<< HEAD:base/src/main/java/com/fujisan/api/service/impl/LightUpServiceImpl.java
 		lightUpRepository.saveModel(lightupModel);
+=======
+		activityRepository.save(lightupModel);
+>>>>>>> new-page:base/src/main/java/com/fujisan/api/service/impl/ActivityServiceImpl.java
 		log.info("[light_up_save] ok" + seq);
 		return new Response<Boolean>(true, "保存成功");
 	}
@@ -100,14 +104,18 @@ public class LightUpServiceImpl implements LightUpService {
 		log.info("start light_off " + seq);
 		lightUpAssert.exists(requestContext, id);
 		Assert.notNull(id);
-		LightUpModel lightupModel = new LightUpModel(id);
+		ActivityModel lightupModel = new ActivityModel(id);
 		lightupModel.setIsLightUp(BooleanAbout.n);
 		lightupModel.setGmtModified(new Date());
 		lightupModel.setModifier(requestContext.getUserModel().getName());
 		lightupModel.setGmtLightUp(new Date());
 		//
 		lightUpAssert.enable(requestContext, lightupModel, BusiTypeEnum.lightoff);
+<<<<<<< HEAD:base/src/main/java/com/fujisan/api/service/impl/LightUpServiceImpl.java
 		lightUpRepository.saveModel(lightupModel);
+=======
+		activityRepository.save(lightupModel);
+>>>>>>> new-page:base/src/main/java/com/fujisan/api/service/impl/ActivityServiceImpl.java
 		log.info("[light_up] ok " + seq);
 		return new Response<Boolean>(true, "已关闭");
 	}
@@ -117,33 +125,37 @@ public class LightUpServiceImpl implements LightUpService {
 		log.info("start light_up " + seq);
 		lightUpAssert.exists(requestContext, id);
 		Assert.notNull(id);
-		LightUpModel lightupModel = new LightUpModel(id);
+		ActivityModel lightupModel = new ActivityModel(id);
 		lightupModel.setIsLightUp(BooleanAbout.y);
 		lightupModel.setGmtModified(new Date());
 		lightupModel.setModifier(requestContext.getUserModel().getName());
 		lightupModel.setGmtLightUp(new Date());
 		lightUpAssert.enable(requestContext, lightupModel, BusiTypeEnum.lightup);
+<<<<<<< HEAD:base/src/main/java/com/fujisan/api/service/impl/LightUpServiceImpl.java
 		lightUpRepository.saveModel(lightupModel);
+=======
+		activityRepository.save(lightupModel);
+>>>>>>> new-page:base/src/main/java/com/fujisan/api/service/impl/ActivityServiceImpl.java
 		log.info("[light_up] ok " + seq);
 		return new Response<Boolean>(true, "已点亮");
 	}
 
 	@Override
-	public Page<LightUpModel> find(RequestContext requestContext, LightUpModel model, List<String> properties,
+	public Page<ActivityModel> find(RequestContext requestContext, ActivityModel model, List<String> properties,
 			Direction direction, List<String> sortProperties, Pageable pageable) {
-		return lightUpRepository.findByPage(model, properties, direction, sortProperties, pageable,LightUpModel.class);
+		return activityRepository.findByPage(model, properties, direction, sortProperties, pageable,ActivityModel.class);
 	}
 	/**
 	 * 活动明细信息
 	 */
 	@Override
-	public Response<LightUpDetail> detail(RequestContext requestContext, String id) {
+	public Response<ActivityDetail> detail(RequestContext requestContext, String id) {
 		String seq = requestContext.getSeq();
 		log.info("start query detail light_up for id="+id+",seq:" + seq);
-		Response<LightUpDetail> result=new Response<LightUpDetail>();
+		Response<ActivityDetail> result=new Response<ActivityDetail>();
 		try {
-			LightUpModel lightUp = lightUpRepository.findOne(id, LightUpModel.class);
-			LightUpDetail detail=new LightUpDetail();
+			ActivityModel lightUp = activityRepository.findOne(id, ActivityModel.class);
+			ActivityDetail detail=new ActivityDetail();
 			detail.setLightUp(lightUp);
 			if (lightUp!=null) {
 				if(StringUtils.isNotBlank(lightUp.getCreatorId()))
@@ -166,15 +178,15 @@ public class LightUpServiceImpl implements LightUpService {
 	}
 
 	@Override
-	public Page<LightUpDetail> findWithDetail(RequestContext current, LightUpModel lightUpModel, List<String> properties,
+	public Page<ActivityDetail> findWithDetail(RequestContext current, ActivityModel lightUpModel, List<String> properties,
 			Direction direction, List<String> sortProperties, Pageable pageable) {
-		 Page<LightUpModel> page = lightUpRepository.findByPage(lightUpModel, properties, direction, sortProperties, pageable,LightUpModel.class);
+		 Page<ActivityModel> page = activityRepository.findByPage(lightUpModel, properties, direction, sortProperties, pageable,ActivityModel.class);
 		 
-		List<LightUpDetail> list=Collections.emptyList();
+		List<ActivityDetail> list=Collections.emptyList();
 		if (page.getTotalElements()>0) {
-			list=new ArrayList<LightUpDetail>();
-			for(LightUpModel lightUp:page.getContent()){
-				LightUpDetail detail=new LightUpDetail();
+			list=new ArrayList<ActivityDetail>();
+			for(ActivityModel lightUp:page.getContent()){
+				ActivityDetail detail=new ActivityDetail();
 				detail.setLightUp(lightUp);
 				if (lightUp!=null) {
 					if(StringUtils.isNotBlank(lightUp.getCreatorId()))
@@ -185,6 +197,6 @@ public class LightUpServiceImpl implements LightUpService {
 				list.add(detail);
 			}
 		}
-		return new PageImpl<LightUpDetail>(list, pageable, page.getTotalElements());
+		return new PageImpl<ActivityDetail>(list, pageable, page.getTotalElements());
 	}
 }

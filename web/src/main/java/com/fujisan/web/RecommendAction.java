@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fujisan.api.LightUpDetail;
+import com.fujisan.api.ActivityDetail;
 import com.fujisan.api.Response;
-import com.fujisan.api.service.LightUpService;
+import com.fujisan.api.service.ActivityService;
 import com.fujisan.api.service.asserts.exception.AssertException;
 import com.fujisan.model.BaseModel;
-import com.fujisan.model.LightUpModel;
+import com.fujisan.model.ActivityModel;
 import com.fujisan.web.login.NeedLogin;
 import com.fujisan.web.login.RequestContextManager;
 import com.google.common.collect.Lists;
@@ -31,19 +31,19 @@ import com.google.common.collect.Lists;
 public class RecommendAction {
 	private static final Logger log = Logger.getLogger(RecommendAction.class);
 	@Autowired
-	private LightUpService lightUpService;
+	private ActivityService lightUpService;
 	
 	@RequestMapping(value = "/recommend/list", method = RequestMethod.POST)
 	@NeedLogin
-	public @ResponseBody Response<Page<LightUpDetail>> list() {
+	public @ResponseBody Response<Page<ActivityDetail>> list() {
 		log.info("[scope] list :" + RequestContextManager.current().getUserModel().getName());
-		Response<Page<LightUpDetail>> result = new Response<Page<LightUpDetail>>();
+		Response<Page<ActivityDetail>> result = new Response<Page<ActivityDetail>>();
 		try {
 			Pageable pageable=new PageRequest(0, 100);
 			
-			LightUpModel model=new LightUpModel();
+			ActivityModel model=new ActivityModel();
 			model.setCreatorId(RequestContextManager.current().getUserModel().getId());
-			Page<LightUpDetail> page = lightUpService.findWithDetail(RequestContextManager.current(),new LightUpModel(), null, Direction.DESC, Lists.newArrayList(BaseModel.final_gmtModified), pageable);
+			Page<ActivityDetail> page = lightUpService.findWithDetail(RequestContextManager.current(),new ActivityModel(), null, Direction.DESC, Lists.newArrayList(BaseModel.final_gmtModified), pageable);
 			result.setValue(page);
 			result.setDesc("º”‘ÿ≥…π¶");
 		} catch (AssertException e) {

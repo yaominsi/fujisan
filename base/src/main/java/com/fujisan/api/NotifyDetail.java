@@ -2,7 +2,7 @@ package com.fujisan.api;
 
 import java.io.Serializable;
 
-import com.fujisan.model.LightUpModel;
+import com.fujisan.model.ActivityModel;
 import com.fujisan.model.NotifyModel;
 import com.fujisan.model.OrderModel;
 import com.fujisan.model.UserModel;
@@ -21,7 +21,7 @@ public class NotifyDetail implements Serializable{
 	//发起人
 	private UserModel fromUser;
 	//活动信息
-	private LightUpModel lightUp;
+	private ActivityModel lightUp;
 	public NotifyModel getNotify() {
 		return notify;
 	}
@@ -40,10 +40,10 @@ public class NotifyDetail implements Serializable{
 	public void setFromUser(UserModel fromUser) {
 		this.fromUser = fromUser;
 	}
-	public LightUpModel getLightUp() {
+	public ActivityModel getLightUp() {
 		return lightUp;
 	}
-	public void setLightUp(LightUpModel lightUp) {
+	public void setLightUp(ActivityModel lightUp) {
 		this.lightUp = lightUp;
 	}
 }
